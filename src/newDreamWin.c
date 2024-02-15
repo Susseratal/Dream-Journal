@@ -1,14 +1,17 @@
 #include "newDreamWin.h"
 
+/*
 void closeDreamWin(GtkWidget *widget, gpointer ptr) {
     setSubWinOpen(0);
     GtkWidget* subWin = GTK_WIDGET(ptr);
     gtk_widget_destroy(subWin);
 }
+*/
 
 void dreamTypeChanged(GtkWidget *wid, gpointer ptr) {
     char* selected = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(wid));
-    printf("The dream type was %s\n", selected);
+    int selectedIndex = gtk_combo_box_get_active(GTK_COMBO_BOX(wid));
+    printf("The dream type was %s\nIndex was %d\n", selected, selectedIndex);
 }
 
 void newDreamWin(GtkWidget *win, gpointer ptr) {
@@ -19,8 +22,8 @@ void newDreamWin(GtkWidget *win, gpointer ptr) {
 
     GtkWidget *closeBtn = gtk_button_new_with_label("Quit"); // Create a button with a label
 
-    g_signal_connect(closeBtn, "clicked", G_CALLBACK(closeDreamWin), subWin); 
-    g_signal_connect(subWin, "delete_event", G_CALLBACK(closeDreamWin), subWin);
+    g_signal_connect(closeBtn, "clicked", G_CALLBACK(closeSubWin), subWin); 
+    g_signal_connect(subWin, "delete_event", G_CALLBACK(closeSubWin), subWin);
     setSubWinOpen(1);
 
     GtkWidget *dreamType = gtk_combo_box_text_new();
